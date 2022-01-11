@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loader from "./components/Loader/index";
 import PrivateRoute from "./components/Routes/PrivateRoute/index";
-// import AccountOpenSuccessPage from "./pages/AccountOpenSuccessPage"
 
 const CompleteSavingsPage = lazy(
   () => import("./pages/CorporateCurrentAccount")
@@ -18,8 +17,17 @@ function App() {
       <Router>
         <Switch>
           <Suspense fallback={Loader}>
-            <Route path="/savings_success" exact component={AccountOpenSuccessPage} />
-            <Route path="/" exact component={CompleteSavingsPage} />
+            <Route
+              path="/CorporateAccountOpening"
+              exact
+              component={CompleteSavingsPage}
+            />
+
+            <Route
+              path="/CorporateAccountOpening/savings_success"
+              exact
+              component={AccountOpenSuccessPage}
+            />
           </Suspense>
         </Switch>
         {/* <Footer /> */}

@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import { handleNext, handlePrevious } from "../../services/Mutations/apis";
 import { useDispatch } from "react-redux";
-import { getValues, updateName } from "./../../utils/utilities";
+import { getBase64, getValues, updateName } from "./../../utils/utilities";
 import { useStateMachine } from "little-state-machine";
 import {
   FileService,
@@ -24,7 +24,7 @@ export default function Step3() {
   const [docType, setDocType] = useState("");
   const dispatch = useDispatch();
   const [fileType, setFileType] = useState("");
-  const [fileBase64, setFileBase64] = useState("");
+  const [fileBase64, setFileBase64] = useState<any>();
   const [imgName, setImageName] = useState("");
   const [docTypeName, setDocTypeName] = useState("");
   const { data: uploadType } = useGetUploadTypeQuery("");
@@ -115,11 +115,9 @@ export default function Step3() {
     setDoc(file[0]);
     setFileType(file[0].type);
     setImageName(file[0].name);
-    imageToBase64(file)
-      .then((response: any) => {
-        setFileBase64(response);
-      })
-      .catch((e: any) => console.log(e));
+    getBase64(file).then((result) => {
+      setFileBase64(result);
+    });
     setUploadDocError("");
   };
 
@@ -163,8 +161,6 @@ export default function Step3() {
     const docTypes = state.data?.uploadCorporateDocuments?.map(
       (item) => item.docType
     );
-
-    console.log(">>>>>>docTypes", docTypes);
 
     if (docTypes.includes(docType)) {
       return setDocTypeError("You cant upload the same document twice");
@@ -489,7 +485,7 @@ export default function Step3() {
         </div>
 
         <div className="form-group col-lg-12 col-md-12 col-sm-12 m-b-20">
-          <div className="d-flex m-t-20">
+          <div className="d-sm-block d-md-flex m-t-20">
             <div className="user_acct_details col-lg-6 col-md-6 col-sm-12 m-b-10">
               <button
                 onClick={() => dispatch(handlePrevious())}

@@ -2,6 +2,9 @@ import React from "react";
 import { handleNext, handlePrevious } from "../../services/Mutations/apis";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import indemity from "../../assets/files/Indemity.pdf";
+import referenceForm from "../../assets/files/referenceForm.pdf";
+import mandateCard from "../../assets/files/Mandate Card.pdf";
 
 export default function Introduction() {
   const dispatch = useDispatch();
@@ -54,15 +57,27 @@ export default function Introduction() {
                           the below forms:
                         </p>
                         <ol className="font-14" style={{ width: "100%" }}>
-                          <Link to="#">
+                          <a
+                            href={indemity}
+                            download="indemity.pdf"
+                            target="_blank"
+                          >
                             <li>Letter of Indemnity</li>
-                          </Link>
-                          <Link to="#">
+                          </a>
+                          <a
+                            href={referenceForm}
+                            download="reference.pdf"
+                            target="_blank"
+                          >
                             <li>Reference Forms</li>
-                          </Link>
-                          <Link to="#">
+                          </a>
+                          <a
+                            href={mandateCard}
+                            download="mandateCard.pdf"
+                            target="_blank"
+                          >
                             <li>Signature Card</li>
-                          </Link>
+                          </a>
                         </ol>
 
                         <div className="form-group col-lg-8 col-md-12 col-sm-12">

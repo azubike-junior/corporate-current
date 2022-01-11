@@ -6,7 +6,6 @@ import {
 } from "little-state-machine";
 import { CsProps } from "./../interfaces/index";
 
-
 export const updateName = (state: GlobalState, payload: CsProps) => ({
   ...state,
   data: {
@@ -30,6 +29,28 @@ export const convertDateToNum = (date: string) => {
   const monthNumber = switchMonthToNumber(month);
   const newDate = day + "" + monthNumber + "" + year;
   return newDate;
+};
+
+export const getBase64 = (file: any) => {
+  return new Promise((resolve) => {
+    let fileInfo;
+    let baseURL: string = "";
+    // Make new FileReader
+    let reader = new FileReader();
+
+    // Convert the file to base64 text
+    reader.readAsDataURL(file[0]);
+
+    // on reader load somthing...
+    reader.onloadend = () => {
+      // Make a fileInfo Object
+      console.log("Called", reader);
+      // baseURL = reader.result;
+      console.log(baseURL);
+      resolve(reader.result);
+    };
+    console.log(fileInfo);
+  });
 };
 
 const switchMonthToNumber = (month: string) => {

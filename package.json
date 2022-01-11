@@ -2,6 +2,7 @@
   "name": "account-opening",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://10.11.200.97/CorporateAccountOpening",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0-beta2",
     "@hookform/resolvers": "^2.8.3",
@@ -38,10 +39,7 @@
   "scripts": {
     "start:dev": "concurrently \"react-scripts --openssl-legacy-provider start\" \"cd node_modules/cors-anywhere/lib/ && npm run start",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "npm run build:css && react-scripts build",
-    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-    "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-    "eject": "react-scripts eject"
+    "build": "react-scripts --openssl-legacy-provider build"
   },
   "eslintConfig": {
     "extends": [

@@ -42,24 +42,24 @@ export default function Review() {
     (branch: any) => branch.value === preferedBranch
   )?.text;
 
-  console.log(">>>branch", branch);
-
   const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
   const submitHandler = () => {
     const { detailsArray, ...rest } = allData.data;
-    console.log(">>>>>rest", rest);
     openCorporateAccount(rest);
   };
-
-  console.log(">>>>err", error, responseData);
 
   return (
     <>
       {responseData?.responseCode === "00" && (
         <AccountOpenSuccessPage actions={actions} />
+      )}
+      {isError && (
+        <span className="text-danger d-flex justify-content-center">
+          sorry, something went wrong
+        </span>
       )}
       <div className="tab-content p-30" id="myTabContent">
         {responseData?.responseCode !== "00" ? (
@@ -333,7 +333,7 @@ export default function Review() {
                 </div>
 
                 <div className="form-group col-lg-12 col-md-12 col-sm-12 m-b-20">
-                  <div className="d-flex m-t-20">
+                  <div className="d-sm-block d-md-flex m-t-20">
                     <div className="user_acct_details col-lg-6 col-md-6 col-sm-12 m-b-10">
                       <button
                         onClick={() => dispatch(handlePrevious())}
@@ -349,7 +349,7 @@ export default function Review() {
                         className="btn btn-block btn-suntrust font-weight-900"
                         onClick={submitHandler}
                       >
-                        {isLoading ? <Loader/> : "Submit"}
+                        {isLoading ? <Loader /> : "Submit"}
                       </button>
                     </div>
                   </div>

@@ -50,6 +50,7 @@ export interface DirectorDetails {
   passportPhotoGraphExt?: string;
   idCardExt?: string;
   signatureExt?: string;
+  religion?: string;
 }
 
 export interface DetailArray {
@@ -65,4 +66,5 @@ export interface DetailArray {
   idCard?: string;
   passport?: string;
   address?: string;
+  religion?: string;
 }

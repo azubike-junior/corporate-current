@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CsProps } from "./../../interfaces/index";
 
 const initialState = {
   page: 1,
@@ -11,7 +10,7 @@ const initialState = {
 export const validateBvnAndOtp = createApi({
   reducerPath: "validateBvnAndOtp",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://10.11.200.97/BvnValidationsApi/Validations`,
+    baseUrl: `http://10.11.200.98/BvnValidationsApi/Validations`,
   }),
 
   endpoints: (builder) => ({
@@ -36,7 +35,15 @@ export const validateBvnAndOtp = createApi({
 export const openCorporateAccount = createApi({
   reducerPath: "",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://10.11.200.97/accountopening/api/v1/AccountOpening/`,
+    baseUrl: `http://10.11.200.98/accountopening/api/v1/AccountOpening/`,
+    prepareHeaders: (headers) => {
+      const token =
+        "4I[PdB7l&/omZT[o.wG^v!<Nni%ANMkSW'+U^5>HepGZ9Nm1xox}#%<?Zx3/7O]";
+      if (token) {
+        headers.set("authorization", `${token}`);
+      }
+      return headers;
+    },
   }),
 
   endpoints: (builder) => ({
@@ -79,3 +86,5 @@ export default NextAndPreviousHandler.reducer;
 export const { useOpenCorporateAccountMutation } = openCorporateAccount;
 export const { useValidateBvnMutation, useValidateOtpMutation } =
   validateBvnAndOtp;
+
+//22277557146

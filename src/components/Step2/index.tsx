@@ -21,7 +21,11 @@ import {
   validateFileType,
 } from "../../utils/validator";
 import imageToBase64 from "image-to-base64/browser";
-import { convertDateToNum, updateName } from "./../../utils/utilities";
+import {
+  convertDateToNum,
+  getBase64,
+  updateName,
+} from "./../../utils/utilities";
 import Modal from "../Modal";
 
 export default function Step2() {
@@ -41,8 +45,6 @@ export default function Step2() {
     { data: response, isError, isLoading, isSuccess, error },
   ] = useValidateBvnMutation();
   const { data: localGovts } = useGetLgtQuery("");
-
-  console.log(">>>>>> response", response);
 
   const genders = [
     { value: "1", text: "male" },
@@ -99,13 +101,9 @@ export default function Step2() {
     setFileUrl((prev: any) => ({ ...prev, [name]: imageUrl }));
     setFileType((prev: any) => ({ ...prev, [name]: file }));
 
-    imageToBase64(file)
-      .then((response: string) => {
-        // console.log(">>>>>response", response);
-        // setFileBase64(response);
-        setImages((prev: any) => ({ ...prev, [name]: response }));
-      })
-      .catch((e: any) => console.log(e));
+    getBase64(file).then((response) => {
+      setImages((prev: any) => ({ ...prev, [name]: response }));
+    });
     setUploadDocError("");
   };
 
@@ -147,6 +145,7 @@ export default function Step2() {
       directorBVN: response?.bvn,
       directorName: `${response?.firstName} ${response?.lastName}`,
       gender,
+      religion: "1 Christianity",
       dateofBirth: convertDateToNum(response?.dateOfBirth),
       address: response?.residentialAddress,
       country: response?.nationality,
@@ -161,8 +160,6 @@ export default function Step2() {
       signatureExt: fileType?.signature[0].type,
     };
 
-    console.log(">>>>>>newDir", newDirector);
-
     const newDetails = {
       directorName: newDirector.directorName,
       mobileNumber: response?.phoneNumber1,
@@ -173,6 +170,7 @@ export default function Step2() {
       countryofOrigin: response?.nationality,
       stateofOrigin: userState,
       gender,
+      religion: "1 Christianity",
       signature: fileUrl.signature,
       idCard: fileUrl.idCard,
       passport: fileUrl.passport,
@@ -212,7 +210,6 @@ export default function Step2() {
         "You need to upload the required documents to continue"
       );
     }
-
     if (uploadDocError) {
       return;
     }
@@ -274,8 +271,8 @@ export default function Step2() {
                               style={{ color: "green" }}
                               className="text-center"
                             >
-                              Your Bvn is valid, please upload the images
-                              to continue
+                              Your Bvn is valid, please upload the images to
+                              continue
                             </span>
                           ) : (
                             ""
@@ -405,7 +402,7 @@ export default function Step2() {
           </div>
 
           <div className="form-group col-lg-12 col-md-12 col-sm-12 m-b-20">
-            <div className="d-flex m-t-20">
+            <div className="d-sm-block d-md-flex m-t-20">
               <Button
                 child="PREVIOUS PAGE"
                 className="btn btn-block btn-suntrust font-weight-900"

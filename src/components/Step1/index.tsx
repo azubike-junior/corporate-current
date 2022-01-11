@@ -28,7 +28,6 @@ export default function Step1() {
       ...data,
     };
     actions.updateName(state.data);
-    // console.log(">>>>>state", state);
     dispatch(handleNext());
   };
 
@@ -37,14 +36,12 @@ export default function Step1() {
     message: "invalid email address",
   };
 
-  console.log(">>>>stateAfter", state, errors);
-
   return (
     <div className="tab-pane fade show active nib_cor_instant_tab d-flex justify-content-center">
       <form className="col-lg-8 m-t-10" onSubmit={handleSubmit(submitHandler)}>
         {Object.keys(errors).length > 0 && (
           <span className="text-danger d-flex justify-content-center pb-2">
-            All fields with Asteric are required
+            Please fill all required fields.
           </span>
         )}
         <div className="row">
@@ -62,10 +59,10 @@ export default function Step1() {
                       <div className="form-group col-lg-6 col-md-12 col-sm-12 font-weight-700">
                         <HookInputField
                           label="RC NUMBER"
-                          type="number"
-                          onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            (e.target.value = e.target.value.slice(0, 11))
-                          }
+                          type="text"
+                          // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          //   (e.target.value = e.target.value.slice(0, 11))
+                          // }
                           name="rcNumber"
                           className="form-control"
                           placeholder="Enter your Company's RC Number"
@@ -148,11 +145,11 @@ export default function Step1() {
                       <div className="form-group col-lg-6 col-md-6 col-sm-12 font-weight-700">
                         <HookInputField
                           label="SCUML NUMBER (where applicable)"
-                          type="number"
+                          type="text"
                           name="scumlNumber"
-                          onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            (e.target.value = e.target.value.slice(0, 11))
-                          }
+                          // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          //   (e.target.value = e.target.value.slice(0, 11))
+                          // }
                           className="form-control"
                           placeholder="Enter your scuml number"
                           register={register}
@@ -210,7 +207,7 @@ export default function Step1() {
         </div>
 
         <div className="form-group col-lg-12 col-md-12 col-sm-12 m-b-20">
-          <div className="d-flex m-t-20">
+          <div className=" d-sm-block d-md-flex m-t-20">
             <Button
               child="PREVIOUS PAGE"
               className="btn btn-block btn-suntrust font-weight-900"

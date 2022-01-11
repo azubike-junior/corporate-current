@@ -18,10 +18,7 @@ export default function Modal() {
   const detail = state.data.detailsArray?.find(
     (detail) => detail.directorBVN === bvn
   );
-
-  console.log(">>>>details", detail);
   
-
   return (
     <CSSTransition in={show} unmountOnExit timeout={{ enter: 0, exit: 300 }}>
       <div className="modal">
