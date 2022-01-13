@@ -2,9 +2,9 @@ import React from "react";
 import { handleNext, handlePrevious } from "../../services/Mutations/apis";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import indemity from "../../assets/files/Indemity.pdf";
-import referenceForm from "../../assets/files/referenceForm.pdf";
-import mandateCard from "../../assets/files/Mandate Card.pdf";
+import indemity from "../../assets/files/Indemity-min.pdf";
+import referenceForm from "../../assets/files/referenceForm-min.pdf";
+import mandateCard from "../../assets/files/Mandate Card-min.pdf";
 
 export default function Introduction() {
   const dispatch = useDispatch();
@@ -47,10 +47,6 @@ export default function Introduction() {
                             National Drivers License and Valid Nigerian INEC
                             Voters Card)
                           </li>
-                          <li>
-                            Two (2) satisfactorily completed reference forms.
-                          </li>
-                          <li>Copy of the audited Financial Statements</li>
                         </ol>
                         <p className="font-14" style={{ width: "100%" }}>
                           You are also required to download, fill, and upload
@@ -59,14 +55,14 @@ export default function Introduction() {
                         <ol className="font-14" style={{ width: "100%" }}>
                           <a
                             href={indemity}
-                            download="indemity.pdf"
+                            download="indemnity.pdf"
                             target="_blank"
                           >
                             <li>Letter of Indemnity</li>
                           </a>
                           <a
                             href={referenceForm}
-                            download="reference.pdf"
+                            download="referenceForm.pdf"
                             target="_blank"
                           >
                             <li>Reference Forms</li>
@@ -76,7 +72,7 @@ export default function Introduction() {
                             download="mandateCard.pdf"
                             target="_blank"
                           >
-                            <li>Signature Card</li>
+                            <li>Mandate Card</li>
                           </a>
                         </ol>
 

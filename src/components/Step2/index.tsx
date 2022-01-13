@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useRef, useState } from "react";
 import { useStateMachine } from "little-state-machine";
 import {
   handleNext,
@@ -45,6 +45,10 @@ export default function Step2() {
     { data: response, isError, isLoading, isSuccess, error },
   ] = useValidateBvnMutation();
   const { data: localGovts } = useGetLgtQuery("");
+
+  const idCardRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const signatureRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const passportRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const genders = [
     { value: "1", text: "male" },
@@ -187,6 +191,10 @@ export default function Step2() {
     setImages("");
     setBvn("");
     setDoc("");
+
+    idCardRef.current.value = "";
+    passportRef.current.value = ""
+    signatureRef.current.value = ""
   };
 
   const deleteDetail = (directorBvn: any) => {
@@ -197,6 +205,7 @@ export default function Step2() {
     const detailArray = state.data.detailsArray.filter(
       (item) => item.directorBVN !== directorBvn
     );
+
     actions.updateName({
       ...state.data,
       directorDetails: [...directorDetail],
@@ -296,6 +305,7 @@ export default function Step2() {
                           <label>UPLOAD YOUR SIGNATURE</label>
                           <div className="border py-1 pl-2">
                             <input
+                              ref={signatureRef}
                               type="file"
                               onChange={handleFile}
                               name="signature"
@@ -307,6 +317,7 @@ export default function Step2() {
                           <label>UPLOAD VALID ID CARD</label>
                           <div className="border py-1 pl-2">
                             <input
+                              ref={idCardRef}
                               type="file"
                               onChange={handleFile}
                               name="idCard"
@@ -318,6 +329,7 @@ export default function Step2() {
                           <label>UPLOAD PASSPORT PHOTOGRAPH</label>
                           <div className="border py-1 pl-2">
                             <input
+                              ref={passportRef}
                               type="file"
                               onChange={handleFile}
                               name="passport"
@@ -330,7 +342,7 @@ export default function Step2() {
                             className="btn btn-block btn-suntrust"
                             child="ADD"
                             type="button"
-                            onClick={() => addDirectorDetails()}
+                            onClick={addDirectorDetails}
                           />
                         </div>
                       </div>

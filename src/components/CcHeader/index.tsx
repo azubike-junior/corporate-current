@@ -36,7 +36,7 @@ export default function CsHeader({ currentStep }: any) {
         <div className="page">
           <div className="flex-column">
             <div className="card nib_savings">
-              <label className="text-center font-weight-700 nib">
+              <label className="text-center font-weight-700 font-poppins nib">
                 OPEN A CORPORATE CURRENT ACCOUNT
               </label>
             </div>

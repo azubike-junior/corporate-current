@@ -7,6 +7,15 @@ export const employmentStatus = [
   { value: "OTHERS", text: "OTHERS" },
 ];
 
+export const uploadTypes = [
+  { documentName: " ", id: "" },
+  { documentName: "Mandate ", id: 1 },
+  { documentName: "Letter of Indemnity ", id: 2 },
+  { documentName: "Reference Form", id: 3 },
+  { documentName: "RC Certificate ", id: 3 },
+  { documentName: "Signature Card ", id: 3 },
+];
+
 export const annualSalary = [
   { value: "", text: "Select" },
   { value: "50000", text: "50000" },

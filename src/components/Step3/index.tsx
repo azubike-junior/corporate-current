@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState, useRef } from "react";
 import { handleNext, handlePrevious } from "../../services/Mutations/apis";
 import { useDispatch } from "react-redux";
 import { getBase64, getValues, updateName } from "./../../utils/utilities";
@@ -15,6 +15,7 @@ import {
   useGetBankBranchQuery,
   useGetUploadTypeQuery,
 } from "../../services/Queries/dropDowns";
+import { uploadTypes } from "../../utils/constant";
 
 export default function Step3() {
   const { state, actions } = useStateMachine({ updateName });
@@ -38,8 +39,10 @@ export default function Step3() {
   const [branchName, setBranchName] = useState("");
 
   const select = { id: "", documentName: "Select" };
-  const uploadTypes = getValues(uploadType, select);
+  // const uploadTypes = getValues(uploadType, select);
   const branches = getValues(branch, select);
+
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const handleEmailAlert = (e: React.ChangeEvent<HTMLInputElement>) => {
     actions.updateName({
@@ -121,6 +124,8 @@ export default function Step3() {
     setUploadDocError("");
   };
 
+  console.log(">>>>>gender", state.data)
+
   const {
     register,
     handleSubmit,
@@ -186,6 +191,8 @@ export default function Step3() {
       ...state.data,
       uploadCorporateDocuments: [...docArray, newData],
     });
+
+    inputRef.current.value = "";
   };
 
   const confirmAndContinue = () => {
@@ -278,6 +285,7 @@ export default function Step3() {
                           <div className="border py-1 pl-2">
                             <input
                               type="file"
+                              ref={inputRef}
                               onChange={(e: SyntheticEvent) =>
                                 handleFiles(e.currentTarget as HTMLInputElement)
                               }

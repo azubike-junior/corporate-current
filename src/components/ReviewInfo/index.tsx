@@ -38,6 +38,10 @@ export default function Review() {
     corporateBankingServices,
   } = allData.data;
 
+
+  console.log(">>>>>>allData", allData);
+  
+
   const branch = branches?.find(
     (branch: any) => branch.value === preferedBranch
   )?.text;

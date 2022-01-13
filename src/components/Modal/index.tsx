@@ -18,7 +18,7 @@ export default function Modal() {
   const detail = state.data.detailsArray?.find(
     (detail) => detail.directorBVN === bvn
   );
-  
+
   return (
     <CSSTransition in={show} unmountOnExit timeout={{ enter: 0, exit: 300 }}>
       <div className="modal">
@@ -73,13 +73,13 @@ export default function Modal() {
                     <strong>Date Of Birth:</strong>{" "}
                     <span>{detail?.mobileNumber}</span>
                   </li>
-                  <li
+                  {/* <li
                     className="list-group-item pl-3 pb-3 p-0"
                     style={{ border: "none" }}
                   >
                     <strong>State Of Origin:</strong>{" "}
                     <span>{detail?.stateofOrigin}</span>
-                  </li>
+                  </li> */}
                   <li
                     className="list-group-item pl-3 pb-3 p-0"
                     style={{ border: "none" }}
@@ -87,12 +87,12 @@ export default function Modal() {
                     <strong>Date Of Birth:</strong>{" "}
                     <span>{detail?.dateofBirth}</span>
                   </li>
-                  <li
+                  {/* <li
                     className="list-group-item pl-3 pb-3 p-0"
                     style={{ border: "none" }}
                   >
                     <strong>Gender:</strong> <span>{detail?.gender}</span>
-                  </li>
+                  </li> */}
                   <li
                     className="list-group-item pl-3 pb-3 p-0"
                     style={{ border: "none" }}
