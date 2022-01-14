@@ -12,8 +12,8 @@ export const uploadTypes = [
   { documentName: "Mandate ", id: 1 },
   { documentName: "Letter of Indemnity ", id: 2 },
   { documentName: "Reference Form", id: 3 },
-  { documentName: "RC Certificate ", id: 3 },
-  { documentName: "Signature Card ", id: 3 },
+  { documentName: "RC Certificate ", id: 4 },
+  { documentName: "Signature Card ", id: 5 },
 ];
 
 export const annualSalary = [

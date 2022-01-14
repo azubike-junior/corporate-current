@@ -52,6 +52,8 @@ export default function Review() {
 
   const submitHandler = () => {
     const { detailsArray, ...rest } = allData.data;
+    console.log(">>>>>>rest", rest);
+    
     openCorporateAccount(rest);
   };
 

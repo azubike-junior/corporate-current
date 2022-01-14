@@ -46,6 +46,8 @@ export default function Step2() {
   ] = useValidateBvnMutation();
   const { data: localGovts } = useGetLgtQuery("");
 
+
+  //Input refs for emptying the file input after submission
   const idCardRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const signatureRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const passportRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -55,20 +57,22 @@ export default function Step2() {
     { value: "2", text: "female" },
   ];
 
+
+  //Mapping out keys value for visuals on the interface
   const gender = genders.find(
     (gender) => gender.text === response?.gender.toLowerCase()
   )?.value;
-
   const lgt = localGovts?.find(
     (lgt: any) => lgt.text === response?.lgaOfOrigin
   )?.value;
-
   const userState = states?.find(
     (s: any) =>
       s.text.substring(0, 4).toUpperCase() ===
       response?.stateOfOrigin.substring(0, 4).toUpperCase()
   )?.value;
 
+
+  // Bvn change handler
   const handleBvnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const bvn = Math.max(0, parseInt(e.target.value)).toString().slice(0, 12);
     setBvn(bvn);
@@ -78,6 +82,8 @@ export default function Step2() {
     }
   };
 
+
+  // File handler
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let file = e.target.files;
     const name = e.target.name;
@@ -152,9 +158,9 @@ export default function Step2() {
       religion: "1 Christianity",
       dateofBirth: convertDateToNum(response?.dateOfBirth),
       address: response?.residentialAddress,
-      country: response?.nationality,
-      stateofOrigin: userState,
-      localGovernment: lgt ? lgt : "2508",
+      countryofOrigin: response?.nationality,
+      stateofOrigin: userState + " " + response?.stateOfOrigin,
+      localGovernment: lgt ? lgt + " " + response?.lgaOfOrigin : "2508",
       relationship: response?.relationship,
       signature: images.signature,
       idCard: images.idCard,
@@ -193,8 +199,8 @@ export default function Step2() {
     setDoc("");
 
     idCardRef.current.value = "";
-    passportRef.current.value = ""
-    signatureRef.current.value = ""
+    passportRef.current.value = "";
+    signatureRef.current.value = "";
   };
 
   const deleteDetail = (directorBvn: any) => {
@@ -246,7 +252,7 @@ export default function Step2() {
                             marginBottom: "30px",
                           }}
                         >
-                          DIRECTOR 1 DETAILS
+                          DIRECTORS DETAILS
                         </h5>
                         <div className="form-group col-lg-12 col-md-6 col-sm-12 font-weight-700 m-b-20">
                           <label>BVN</label>
@@ -337,9 +343,9 @@ export default function Step2() {
                           </div>
                         </div>
 
-                        <div className="form-group col-lg-3 col-md-12 col-sm-12 font-weight-700 m-b-30">
+                        <div className="form-group col-lg-12 font-weight-700 m-b-30 d-flex">
                           <Button
-                            className="btn btn-block btn-suntrust"
+                            className="btn btn-suntrust col-5"
                             child="ADD"
                             type="button"
                             onClick={addDirectorDetails}
@@ -351,7 +357,7 @@ export default function Step2() {
 
                   <div className="form-group col-lg-12 col-md-12 col-sm-12">
                     <div className="header font-weight-700">
-                      <h6>DIRECTOR'S DETAILS</h6>
+                      <h6>DIRECTORS DETAILS</h6>
                     </div>
                     <div className="table-responsive border font-14">
                       <table className="table table-hover mb-0 c_list">

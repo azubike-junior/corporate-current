@@ -1,11 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
 @-ms-viewport {
   width: device-width;
 }
 
+a {
+  text-decoration: underline !important;
+}
+
+a:hover {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .font-poppins {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 input::-webkit-outer-spin-button,
@@ -15,7 +25,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
