@@ -153,7 +153,7 @@ export default function Step1() {
                           className="form-control"
                           placeholder="Enter your scuml number"
                           register={register}
-                          required
+                          optional
                           errors={errors.scumlNumber}
                         />
                       </div>

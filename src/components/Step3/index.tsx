@@ -1,7 +1,12 @@
 import React, { SyntheticEvent, useState, useRef } from "react";
 import { handleNext, handlePrevious } from "../../services/Mutations/apis";
 import { useDispatch } from "react-redux";
-import { getBase64, getValues, updateName } from "./../../utils/utilities";
+import {
+  addOthers,
+  getBase64,
+  getValues,
+  updateName,
+} from "./../../utils/utilities";
 import { useStateMachine } from "little-state-machine";
 import {
   FileService,
@@ -37,6 +42,13 @@ export default function Step3() {
   const [tokenChecked, setTokenChecked] = useState<boolean>(false);
   const [chequeChecked, setChequeChecked] = useState<boolean>(false);
   const [branchName, setBranchName] = useState("");
+  const { data: documentTypes } = useGetUploadTypeQuery("");
+
+  const newValue = { text: "", value: "" };
+
+  const allDocs = getValues(documentTypes, newValue);
+
+  // const uploadTypes = addOthers(allDocs, { id: 3, documentName: "Others" });
 
   const select = { id: "", documentName: "Select" };
   // const uploadTypes = getValues(uploadType, select);
@@ -124,8 +136,6 @@ export default function Step3() {
     setUploadDocError("");
   };
 
-  console.log(">>>>>gender", state.data)
-
   const {
     register,
     handleSubmit,
@@ -159,6 +169,9 @@ export default function Step3() {
   const addDocuments = () => {
     if (docTypeName === "") {
       return setDocTypeError("You need to choose a document type to continue");
+    }
+    if (!doc) {
+      return setUploadDocError("you need to choose a file ");
     }
     if (fileBase64 === "") {
       return setUploadDocError("You need to choose a file ");
@@ -476,8 +489,6 @@ export default function Step3() {
                           onChange={handleBranch}
                         >
                           {branches?.map((item: any, index: number) => {
-                            console.log("item", item.value, item.text);
-
                             return (
                               <option value={item.value}>{item.text}</option>
                             );
