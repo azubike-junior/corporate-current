@@ -10,14 +10,15 @@ const initialState = {
 export const validateBvnAndOtp = createApi({
   reducerPath: "validateBvnAndOtp",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://10.11.200.97/BvnValidationsApi/Validations`,
+    baseUrl: `https://digitalbanking.suntrustng.com:8443/BvnValidationsApi/Validations`,
+    // baseUrl: `http://10.11.200.97/BvnValidationsApi/Validations/`,
   }),
 
   endpoints: (builder) => ({
     validateBvn: builder.mutation({
       query: (bvn: string) => ({
         url: "ValidateBvn",
-        method: "POST",
+        method: "POST", 
         body: { bvn },
       }),
     }),
@@ -35,7 +36,8 @@ export const validateBvnAndOtp = createApi({
 export const openCorporateAccount = createApi({
   reducerPath: "",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://10.11.200.97/accountopening/api/v1/AccountOpening/`,
+    baseUrl: `https://digitalbanking.suntrustng.com:8443/accountopening/api/v1/AccountOpening/`,
+    // baseUrl: `http://10.11.200.97/accountopening/api/v1/AccountOpening/`,
     prepareHeaders: (headers) => {
       const token =
         "4I[PdB7l&/omZT[o.wG^v!<Nni%ANMkSW'+U^5>HepGZ9Nm1xox}#%<?Zx3/7O]";

@@ -3,9 +3,13 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { getDropDownData } from "./../services/Queries/dropDowns";
 import { openCorporateAccount, validateBvnAndOtp } from '../services/Mutations/apis';
 import NextAndPreviousReducer from "../services/Mutations/apis";
+import addUbo from './../services/Mutations/postUbo';
+import getAllUbos from './../services/Mutations/getUbo';
 
 export const store = configureStore({
   reducer: {
+    getAllUbos,
+    addUbo,
     handler: NextAndPreviousReducer,
     [getDropDownData.reducerPath]: getDropDownData.reducer,
     [validateBvnAndOtp.reducerPath]: validateBvnAndOtp.reducer,

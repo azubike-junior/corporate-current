@@ -58,7 +58,7 @@ export default function Step1() {
                     <div className="row">
                       <div className="form-group col-lg-6 col-md-12 col-sm-12 font-weight-700">
                         <HookInputField
-                          label="RC NUMBER"
+                          label="BVN/RC NUMBER"
                           type="text"
                           // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
                           //   (e.target.value = e.target.value.slice(0, 11))
@@ -165,7 +165,7 @@ export default function Step1() {
                           name="tin"
                           className="form-control"
                           onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            (e.target.value = e.target.value.slice(0, 11))
+                            (e.target.value = e.target.value.slice(0, 20))
                           }
                           placeholder="Enter your tax identification number"
                           register={register}

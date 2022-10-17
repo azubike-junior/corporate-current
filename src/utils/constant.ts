@@ -13,7 +13,8 @@ export const uploadTypes = [
   { documentName: "Letter of Indemnity ", id: 2 },
   { documentName: "Reference Form", id: 3 },
   { documentName: "RC Certificate ", id: 4 },
-  { documentName: "Others", id: 4 },
+  { documentName: "Declaration of UBO INO MINES", id: 5 },
+  { documentName: "Others", id: 6 },
 ];
 
 export const annualSalary = [
@@ -84,6 +85,8 @@ export const emptyData = {
   directorDetails: [],
   uploadCorporateDocuments: [],
   detailsArray: [],
+  uboArray:[],
+  uboDetails:[],
   corporateBankingServices: {
     emailAlert: "",
     smsAlert: "",

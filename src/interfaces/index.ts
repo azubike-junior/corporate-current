@@ -14,6 +14,8 @@ export interface CsProps {
   uploadCorporateDocuments?: UploadDetails[];
   corporateBankingServices?: corporateBankService;
   detailsArray: DetailArray[];
+  uboDetails?: UboDetails[];
+  uboArray?: UboDetails[];
 }
 export interface corporateBankService {
   emailAlert?: string;
@@ -67,4 +69,14 @@ export interface DetailArray {
   passport?: string;
   address?: string;
   religion?: string;
+}
+
+export interface UboDetails {
+  name?: string;
+  bvn?: string;
+  percentage?: string;
+  place?: string;
+  idType?: string;
+  details?: string;
+  serial?: string
 }

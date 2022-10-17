@@ -27,6 +27,9 @@ import {
   updateName,
 } from "./../../utils/utilities";
 import Modal from "../Modal";
+import { HookInputField } from "./../InputField/index";
+import { useForm } from "react-hook-form";
+import { UboDetails } from "../../interfaces";
 
 export default function Step2() {
   const dispatch = useDispatch();
@@ -46,6 +49,16 @@ export default function Step2() {
   ] = useValidateBvnMutation();
   const { data: localGovts } = useGetLgtQuery("");
 
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      ...state.data,
+    },
+  });
 
   //Input refs for emptying the file input after submission
   const idCardRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -56,7 +69,6 @@ export default function Step2() {
     { value: "1", text: "male" },
     { value: "2", text: "female" },
   ];
-
 
   //Mapping out keys value for visuals on the interface
   const gender = genders.find(
@@ -71,7 +83,6 @@ export default function Step2() {
       response?.stateOfOrigin.substring(0, 4).toUpperCase()
   )?.value;
 
-
   // Bvn change handler
   const handleBvnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const bvn = Math.max(0, parseInt(e.target.value)).toString().slice(0, 12);
@@ -81,7 +92,6 @@ export default function Step2() {
       validateBvn(bvn);
     }
   };
-
 
   // File handler
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,6 +226,49 @@ export default function Step2() {
       ...state.data,
       directorDetails: [...directorDetail],
       detailsArray: [...detailArray],
+    });
+  };
+
+  const addUboDetails = (data: any) => {
+    console.log(">>>>>myData", data);
+
+    const { name, bvn, percentage, place, idType, details } = data;
+
+    const uboData = {
+      name,
+      bvn,
+      percentage,
+      place,
+      idType,
+      details,
+    };
+
+    const uboDetails = state.data.uboDetails;
+    const uboArray = state.data.uboArray;
+
+    actions.updateName({
+      ...state.data,
+      uboDetails: [...uboDetails, uboData],
+      uboArray: [...uboArray, uboData],
+    });
+
+    // console.log(">>>>>uboData", uboData);
+    reset();
+  };
+
+  const deleteUbo = (uboBvn: any) => {
+    const uboDetail = state.data.uboDetails.filter(
+      (item) => item.uboBvn !== uboBvn
+    );
+
+    const uboArray = state.data.uboArray.filter(
+      (item) => item.uboBvn !== uboBvn
+    );
+
+    actions.updateName({
+      ...state.data,
+      uboDetails: [...uboDetail],
+      uboArray: [...uboArray],
     });
   };
 
@@ -357,7 +410,7 @@ export default function Step2() {
 
                   <div className="form-group col-lg-12 col-md-12 col-sm-12">
                     <div className="header font-weight-700">
-                      <h6>DIRECTORS DETAILS</h6>
+                      {/* <h6>DIRECTORS DETAILS</h6> */}
                     </div>
                     <div className="table-responsive border font-14">
                       <table className="table table-hover mb-0 c_list">
@@ -410,6 +463,197 @@ export default function Step2() {
                               </>
                             );
                           })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="panel-body">
+                  <div className="user_bvn_data_row1 font-12 m-b-20">
+                    <div className="col-lg-12">
+                      <form
+                        onSubmit={handleSubmit(addUboDetails)}
+                        className="row"
+                      >
+                        <h5
+                          style={{
+                            textDecoration: "underline",
+                            marginBottom: "30px",
+                          }}
+                        >
+                          DETAILS OF ULTIMATE BENEFICIAL OWNERS (UBOs)
+                        </h5>
+
+                        <div className="col-lg-12">
+                          {Object.keys(errors).length > 0 && (
+                            <span className="text-danger d-flex justify-content-center pb-4">
+                              Please fill all required fields.
+                            </span>
+                          )}
+                          <div className="row">
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="COMPANY/INDIVIDUAL"
+                                type="text"
+                                name="name"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter your company Name"
+                                register={register}
+                                required
+                              />
+                            </div>
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="BVN/RC NUMBER"
+                                type="number"
+                                name="bvn"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter your bvn"
+                                register={register}
+                                required
+                              />
+                            </div>
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="PERCENTAGE OF SHARES"
+                                type="text"
+                                name="percentage"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter your phone number"
+                                register={register}
+                                required
+                              />
+                            </div>
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="NATIONALITY/PLACE OF INCORPORATION"
+                                type="text"
+                                name="place"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter your nationality"
+                                register={register}
+                                required
+                              />
+                            </div>
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="ID TYPE/NUMBER"
+                                type="text"
+                                name="idType"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter your ID type"
+                                register={register}
+                                required
+                              />
+                            </div>
+                            <div className="form-group col-lg-4 col-md-12 col-sm-12 font-weight-700">
+                              <HookInputField
+                                label="DETAILS OF NATURAL PERSONS"
+                                type="text"
+                                name="details"
+                                // onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                //   (e.target.value = e.target.value.slice(0, 11))
+                                // }
+                                className="form-control"
+                                placeholder="Enter details"
+                                register={register}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="form-group col-lg-12 col-md-6 col-sm-12 font-weight-700 m-b-20 text-center">
+                          {uploadDocError && (
+                            <span className="text-danger">
+                              {uploadDocError}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="form-group col-lg-12 font-weight-700 m-b-30 d-flex">
+                          <Button
+                            className="btn btn-suntrust col-5"
+                            child="ADD"
+                            type="submit"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                    <div className="header font-weight-700">
+                      <h6>Details of Ultimate Beneficial Owners (UBOs):</h6>
+                    </div>
+                    <div className="table-responsive border font-14">
+                      <table className="table table-hover mb-0 c_list">
+                        <thead style={{ backgroundColor: "#c4c4c4" }}>
+                          <tr>
+                            <th>S/N</th>
+                            <th>COMPANY</th>
+                            <th>BVN/RC NO.</th>
+                            <th>MOBILE NO.</th>
+                            <th>NATIONALITY</th>
+                            <th>ID TYPE/NO.</th>
+                            <th>DETAILS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {state.data.uboArray.map(
+                            (detail: UboDetails, index) => {
+                              const {
+                                serial,
+                                name,
+                                bvn,
+                                percentage,
+                                place,
+                                idType,
+                                details,
+                              } = detail;
+                              return (
+                                <>
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{name}</td>
+                                    <td>{bvn}</td>
+                                    <td>{percentage}</td>
+                                    <td>{place}</td>
+                                    <td>{idType}</td>
+                                    <td>{details}</td>
+
+                                    <td>
+                                      <button
+                                        type="button"
+                                        className="btn btn-danger btn-sm m-b-5"
+                                        title="Delete"
+                                        onClick={() => deleteUbo(bvn)}
+                                      >
+                                        Delete
+                                      </button>
+                                    </td>
+                                  </tr>
+                                  <Modal />
+                                </>
+                              );
+                            }
+                          )}
                         </tbody>
                       </table>
                     </div>

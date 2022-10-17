@@ -4,6 +4,7 @@ import {
   corporateBankService,
   DetailArray,
   TransactionService,
+  uboDetails,
   UploadDetails,
 } from "./interfaces";
 
@@ -25,6 +26,8 @@ declare module "little-state-machine" {
       uploadCorporateDocuments: UploadDetails[];
       corporateBankingServices?: corporateBankService;
       detailsArray: DetailArray[];
+      uboArray: UboDetails[];
+      uboDetails: UboDetails[];
     };
   }
 }

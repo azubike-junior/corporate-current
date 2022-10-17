@@ -2,7 +2,7 @@
   "name": "account-opening",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://10.11.200.97/CorporateAccountOpening",
+  "homepage": "https://digitalbanking.suntrustng.com:8443/CorporateAccountOpening",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0-beta2",
     "@hookform/resolvers": "^2.8.3",

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import indemity from "../../assets/files/Indemity-min.pdf";
 import referenceForm from "../../assets/files/referenceForm-min.pdf";
 import mandateCard from "../../assets/files/Mandate Card-min.pdf";
+import declarationOfUBO from "../../assets/files/DECLARATION OF UBO IFO MINES.IO.pdf";
 
 export default function Introduction() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function Introduction() {
                       <div className="row">
                         <p className="font-14">
                           Welcome! Thank you for choosing SunTrust Bank Nigeria.
-                          To get started, ensure the underlisted documents are
+                          To get started, ensure the under listed documents are
                           readily available for uploads.
                         </p>
                         <ol className="font-14">
@@ -73,6 +74,13 @@ export default function Introduction() {
                             target="_blank"
                           >
                             <li>Mandate Card</li>
+                          </a>
+                          <a
+                            href={declarationOfUBO}
+                            download="declarationOfUBO.pdf"
+                            target="_blank"
+                          >
+                            <li>Declaration of UBO IFO MINES</li>
                           </a>
                         </ol>
 

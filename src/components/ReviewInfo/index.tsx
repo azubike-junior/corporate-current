@@ -13,6 +13,8 @@ import Modal from "../Modal";
 import { useGetBankBranchQuery } from "../../services/Queries/dropDowns";
 import AccountOpenSuccessPage from "../../pages/AccountOpenSuccessPage";
 import Loader from "../Loader";
+import { UboDetails } from "../../interfaces";
+import { postUbo } from "../../services/Mutations/postUbo";
 
 export default function Review() {
   const { state: allData, actions } = useStateMachine({ updateName });
@@ -41,6 +43,8 @@ export default function Review() {
     detailsArray,
     uploadCorporateDocuments,
     corporateBankingServices,
+    uboArray,
+    uboDetails,
   } = allData.data;
 
   const branch = branches?.find(
@@ -56,7 +60,13 @@ export default function Review() {
   });
 
   const submitHandler = () => {
-    const { detailsArray, ...rest } = allData.data;
+    const { detailsArray, uboArray, uboDetails, ...rest } = allData.data;
+    const uboData = {
+      companyName: allData.data.businessName,
+      beneficiary: uboDetails,
+    }
+
+    dispatch(postUbo(uboData));
     openCorporateAccount(rest);
   };
 
@@ -269,7 +279,7 @@ export default function Review() {
                   </div>
 
                   {/* // <!-- UPLOADED DOCUMENTS TABLE --> */}
-                  <div className="form-group col-lg-12 col-md-12 col-sm-12 font-weight-700">
+                  <div className="form-group col-lg-12 col-md-12 col-sm-12 font-weight-700 m-b-50">
                     <div className="header">
                       <h6>DOCUMENTS UPLOADED</h6>
                     </div>
@@ -307,6 +317,54 @@ export default function Review() {
                                   </button>
                                 </td>
                               </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                    <div className="header font-weight-700">
+                      <h6>Details of Ultimate Beneficial Owners (UBOs):</h6>
+                    </div>
+                    <div className="table-responsive border font-14">
+                      <table className="table table-hover mb-0 c_list">
+                        <thead style={{ backgroundColor: "#c4c4c4" }}>
+                          <tr>
+                            <th>S/N</th>
+                            <th>COMPANY</th>
+                            <th>BVN/RC NO.</th>
+                            <th>MOBILE NO.</th>
+                            <th>NATIONALITY</th>
+                            <th>ID TYPE/NO.</th>
+                            <th>DETAILS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {uboArray.map((detail: UboDetails, index) => {
+                            const {
+                              serial,
+                              name,
+                              bvn,
+                              percentage,
+                              place,
+                              idType,
+                              details,
+                            } = detail;
+                            return (
+                              <>
+                                <tr key={index}>
+                                  <td>{index + 1}</td>
+                                  <td>{name}</td>
+                                  <td>{bvn}</td>
+                                  <td>{percentage}</td>
+                                  <td>{place}</td>
+                                  <td>{idType}</td>
+                                  <td>{details}</td>
+                                </tr>
+                                <Modal />
+                              </>
                             );
                           })}
                         </tbody>

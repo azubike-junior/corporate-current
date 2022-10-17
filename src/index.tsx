@@ -11,7 +11,6 @@ import "../src/assets/css/modal.css";
 
 import { store } from "./store/store";
 import { Provider } from "react-redux";
-import Modal from "./components/Modal/index";
 
 ReactDOM.render(
   <React.StrictMode>

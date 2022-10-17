@@ -19,6 +19,7 @@ import Step2 from "../../components/Step2/index";
 createStore(
   {
     data: {
+      uboArray: [],
       rcNumber: "",
       businessName: "",
       mobileNumber: "",
@@ -33,6 +34,7 @@ createStore(
       directorDetails: [],
       uploadCorporateDocuments: [],
       detailsArray: [],
+      uboDetails: [],
       corporateBankingServices: {
         emailAlert: "",
         smsAlert: "",
